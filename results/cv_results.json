@@ -1,0 +1,328 @@
+{
+  "cv_summary": {
+    "dice_coefficient": {
+      "mean": 0.8573493480682373,
+      "std": 0.021071638698744073
+    },
+    "iou_metric": {
+      "mean": 0.7796693205833435,
+      "std": 0.029706688074690558
+    },
+    "loss": {
+      "mean": 0.22006551921367645,
+      "std": 0.0322753736927585
+    }
+  },
+  "area_fraction_summary": {
+    "mean_abs_error": 0.01662457513380107,
+    "median_abs_error": 0.01026891120683393,
+    "max_abs_error": 0.06860846661506814
+  },
+  "per_image_area_results": [
+    {
+      "stem": "18Dm32",
+      "true_area_fraction": 0.17381002547893118,
+      "pred_area_fraction": 0.1426910238063082,
+      "abs_error": 0.031119001672622992
+    },
+    {
+      "stem": "MA28",
+      "true_area_fraction": 0.02931281621889142,
+      "pred_area_fraction": 0.025675075038008578,
+      "abs_error": 0.0036377411808828433
+    },
+    {
+      "stem": "MA32",
+      "true_area_fraction": 0.038799693621991906,
+      "pred_area_fraction": 0.04031673497064909,
+      "abs_error": 0.0015170413486571832
+    },
+    {
+      "stem": "MA21",
+      "true_area_fraction": 0.09719183783310177,
+      "pred_area_fraction": 0.07101185335386079,
+      "abs_error": 0.026179984479240984
+    },
+    {
+      "stem": "27Bf2",
+      "true_area_fraction": 0.11092490338264628,
+      "pred_area_fraction": 0.1237335205078125,
+      "abs_error": 0.012808617125166219
+    },
+    {
+      "stem": "32Bf3",
+      "true_area_fraction": 0.09637085934902759,
+      "pred_area_fraction": 0.12545573457758477,
+      "abs_error": 0.029084875228557183
+    },
+    {
+      "stem": "32Bf2",
+      "true_area_fraction": 0.098835640765251,
+      "pred_area_fraction": 0.12150370821039727,
+      "abs_error": 0.022668067445146267
+    },
+    {
+      "stem": "31Cf5",
+      "true_area_fraction": 0.10139408517391124,
+      "pred_area_fraction": 0.07210216116397938,
+      "abs_error": 0.029291924009931858
+    },
+    {
+      "stem": "33Bf4",
+      "true_area_fraction": 0.06765641557409409,
+      "pred_area_fraction": 0.06991495984665891,
+      "abs_error": 0.002258544272564819
+    },
+    {
+      "stem": "27Bmb2",
+      "true_area_fraction": 0.1156069167116855,
+      "pred_area_fraction": 0.12125429194024269,
+      "abs_error": 0.005647375228557183
+    },
+    {
+      "stem": "18Dm3",
+      "true_area_fraction": 0.1756806880869764,
+      "pred_area_fraction": 0.12181351032662899,
+      "abs_error": 0.05386717776034741
+    },
+    {
+      "stem": "18Bm2",
+      "true_area_fraction": 0.1899422990514877,
+      "pred_area_fraction": 0.22989200023894615,
+      "abs_error": 0.03994970118745844
+    },
+    {
+      "stem": "34Am1",
+      "true_area_fraction": 0.1483754908784907,
+      "pred_area_fraction": 0.12185871854741523,
+      "abs_error": 0.026516772331075467
+    },
+    {
+      "stem": "18Cm2",
+      "true_area_fraction": 0.14343927261677195,
+      "pred_area_fraction": 0.1416939268720911,
+      "abs_error": 0.001745345744680854
+    },
+    {
+      "stem": "18Bm1",
+      "true_area_fraction": 0.26392478131233377,
+      "pred_area_fraction": 0.2238276055518617,
+      "abs_error": 0.04009717576047206
+    },
+    {
+      "stem": "18Bm4",
+      "true_area_fraction": 0.15840262555061502,
+      "pred_area_fraction": 0.20642227822161735,
+      "abs_error": 0.04801965267100233
+    },
+    {
+      "stem": "MA13",
+      "true_area_fraction": 0.04779044114523617,
+      "pred_area_fraction": 0.058485070489580016,
+      "abs_error": 0.010694629344343842
+    },
+    {
+      "stem": "MA16",
+      "true_area_fraction": 0.04546057860643429,
+      "pred_area_fraction": 0.05183887737578565,
+      "abs_error": 0.006378298769351358
+    },
+    {
+      "stem": "MA29",
+      "true_area_fraction": 0.03702124763559672,
+      "pred_area_fraction": 0.03105181825108502,
+      "abs_error": 0.005969429384511702
+    },
+    {
+      "stem": "19Am3",
+      "true_area_fraction": 0.13048642746945646,
+      "pred_area_fraction": 0.13280146172706117,
+      "abs_error": 0.002315034257604709
+    },
+    {
+      "stem": "18Cm3",
+      "true_area_fraction": 0.14216451441988032,
+      "pred_area_fraction": 0.0978455239153923,
+      "abs_error": 0.04431899050448802
+    },
+    {
+      "stem": "27Bf1",
+      "true_area_fraction": 0.09882533296625665,
+      "pred_area_fraction": 0.09321375096097906,
+      "abs_error": 0.005611582005277588
+    },
+    {
+      "stem": "31Cf4",
+      "true_area_fraction": 0.09320571574758976,
+      "pred_area_fraction": 0.0970531220131732,
+      "abs_error": 0.003847406265583442
+    },
+    {
+      "stem": "33Bm3",
+      "true_area_fraction": 0.11791107502389461,
+      "pred_area_fraction": 0.12197039989714926,
+      "abs_error": 0.004059324873254652
+    },
+    {
+      "stem": "33Bf3",
+      "true_area_fraction": 0.09405688022045379,
+      "pred_area_fraction": 0.08461485517785904,
+      "abs_error": 0.009442025042594754
+    },
+    {
+      "stem": "16Cm1",
+      "true_area_fraction": 0.14910490969394116,
+      "pred_area_fraction": 0.1498996653455369,
+      "abs_error": 0.0007947556515957299
+    },
+    {
+      "stem": "MA20",
+      "true_area_fraction": 0.03800642225907953,
+      "pred_area_fraction": 0.058511527708540394,
+      "abs_error": 0.020505105449460867
+    },
+    {
+      "stem": "33Bm1",
+      "true_area_fraction": 0.11339991143409242,
+      "pred_area_fraction": 0.12055052087662067,
+      "abs_error": 0.007150609442528252
+    },
+    {
+      "stem": "18Bm3",
+      "true_area_fraction": 0.2134581220910904,
+      "pred_area_fraction": 0.14484965547602227,
+      "abs_error": 0.06860846661506814
+    },
+    {
+      "stem": "33Bf2",
+      "true_area_fraction": 0.09668074262903091,
+      "pred_area_fraction": 0.09518229707758477,
+      "abs_error": 0.0014984455514461398
+    },
+    {
+      "stem": "18Dm2",
+      "true_area_fraction": 0.23476247584566157,
+      "pred_area_fraction": 0.2087392604097407,
+      "abs_error": 0.02602321543592087
+    },
+    {
+      "stem": "34Am3",
+      "true_area_fraction": 0.13566086140084774,
+      "pred_area_fraction": 0.11041641235351562,
+      "abs_error": 0.025244449047332113
+    },
+    {
+      "stem": "16Cm2",
+      "true_area_fraction": 0.19692936349422374,
+      "pred_area_fraction": 0.19011428508352726,
+      "abs_error": 0.006815078410696479
+    },
+    {
+      "stem": "31Cf1",
+      "true_area_fraction": 0.07364597726375499,
+      "pred_area_fraction": 0.07561249428607048,
+      "abs_error": 0.0019665170223154838
+    },
+    {
+      "stem": "16Cm3",
+      "true_area_fraction": 0.14413200540745513,
+      "pred_area_fraction": 0.1697943667148022,
+      "abs_error": 0.02566236130734706
+    },
+    {
+      "stem": "34Am4",
+      "true_area_fraction": 0.12205351159927692,
+      "pred_area_fraction": 0.11322167579163896,
+      "abs_error": 0.008831835807637967
+    },
+    {
+      "stem": "34Am2",
+      "true_area_fraction": 0.12135574665475399,
+      "pred_area_fraction": 0.11321185497527426,
+      "abs_error": 0.008143891679479723
+    },
+    {
+      "stem": "31Cf3",
+      "true_area_fraction": 0.08553874239008477,
+      "pred_area_fraction": 0.074105607702377,
+      "abs_error": 0.011433134687707777
+    },
+    {
+      "stem": "MA12",
+      "true_area_fraction": 0.0744262340493209,
+      "pred_area_fraction": 0.06455129625685,
+      "abs_error": 0.009874937792470909
+    },
+    {
+      "stem": "18Dm1",
+      "true_area_fraction": 0.18171748709171376,
+      "pred_area_fraction": 0.1511922795721825,
+      "abs_error": 0.03052520751953125
+    },
+    {
+      "stem": "31Cf2",
+      "true_area_fraction": 0.07521446715009973,
+      "pred_area_fraction": 0.07618640331511801,
+      "abs_error": 0.0009719361650182834
+    },
+    {
+      "stem": "27Bmb1",
+      "true_area_fraction": 0.0669717991605718,
+      "pred_area_fraction": 0.0861250694761885,
+      "abs_error": 0.0191532703156167
+    },
+    {
+      "stem": "MA34",
+      "true_area_fraction": 0.025360718581180285,
+      "pred_area_fraction": 0.0200208030807063,
+      "abs_error": 0.005339915500473986
+    },
+    {
+      "stem": "27Bmb3",
+      "true_area_fraction": 0.11110630441219249,
+      "pred_area_fraction": 0.09029640035426363,
+      "abs_error": 0.02080990405792886
+    },
+    {
+      "stem": "18Cf1",
+      "true_area_fraction": 0.11317070494306848,
+      "pred_area_fraction": 0.13325443673641124,
+      "abs_error": 0.02008373179334276
+    },
+    {
+      "stem": "MA18",
+      "true_area_fraction": 0.05494149308245916,
+      "pred_area_fraction": 0.06521040428929309,
+      "abs_error": 0.01026891120683393
+    },
+    {
+      "stem": "19Am1",
+      "true_area_fraction": 0.13284967300739695,
+      "pred_area_fraction": 0.1323518144323471,
+      "abs_error": 0.0004978585750498588
+    },
+    {
+      "stem": "33Bf1",
+      "true_area_fraction": 0.07789262812188331,
+      "pred_area_fraction": 0.06602429329080785,
+      "abs_error": 0.011868334831075467
+    },
+    {
+      "stem": "34Am5",
+      "true_area_fraction": 0.1170214389232879,
+      "pred_area_fraction": 0.12250802872028757,
+      "abs_error": 0.005486589796999675
+    }
+  ],
+  "config": {
+    "n_folds": 5,
+    "tile_size": 256,
+    "tile_stride": 192,
+    "batch_size": 8,
+    "epochs_frozen": 15,
+    "epochs_finetune": 30,
+    "lr_frozen": 0.001,
+    "lr_finetune": 1e-05,
+    "n_total_slides": 49
+  }
+}

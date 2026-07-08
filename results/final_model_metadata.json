@@ -1,0 +1,86 @@
+{
+  "trained_on": "2026-07-07T16:19:42.378672",
+  "n_training_slides": 49,
+  "training_slide_stems": [
+    "16Cm1",
+    "16Cm2",
+    "16Cm3",
+    "18Bm1",
+    "18Bm2",
+    "18Bm3",
+    "18Bm4",
+    "18Cf1",
+    "18Cm2",
+    "18Cm3",
+    "18Dm1",
+    "18Dm2",
+    "18Dm3",
+    "18Dm32",
+    "19Am1",
+    "19Am3",
+    "27Bf1",
+    "27Bf2",
+    "27Bmb1",
+    "27Bmb2",
+    "27Bmb3",
+    "31Cf1",
+    "31Cf2",
+    "31Cf3",
+    "31Cf4",
+    "31Cf5",
+    "32Bf2",
+    "32Bf3",
+    "33Bf1",
+    "33Bf2",
+    "33Bf3",
+    "33Bf4",
+    "33Bm1",
+    "33Bm3",
+    "34Am1",
+    "34Am2",
+    "34Am3",
+    "34Am4",
+    "34Am5",
+    "MA12",
+    "MA13",
+    "MA16",
+    "MA18",
+    "MA20",
+    "MA21",
+    "MA28",
+    "MA29",
+    "MA32",
+    "MA34"
+  ],
+  "config": {
+    "n_folds": 5,
+    "tile_size": 256,
+    "tile_stride": 192,
+    "batch_size": 8,
+    "epochs_frozen": 15,
+    "epochs_finetune": 30,
+    "lr_frozen": 0.001,
+    "lr_finetune": 1e-05,
+    "n_total_slides": 49
+  },
+  "cross_validation_summary": {
+    "dice_coefficient": {
+      "mean": 0.8573493480682373,
+      "std": 0.021071638698744073
+    },
+    "iou_metric": {
+      "mean": 0.7796693205833435,
+      "std": 0.029706688074690558
+    },
+    "loss": {
+      "mean": 0.22006551921367645,
+      "std": 0.0322753736927585
+    }
+  },
+  "cross_validation_area_fraction_summary": {
+    "mean_abs_error": 0.01662457513380107,
+    "median_abs_error": 0.01026891120683393,
+    "max_abs_error": 0.06860846661506814
+  },
+  "notes": "Trained on ALL annotated slides (no held-out fold). Cross-validation numbers above describe expected generalisation for this recipe, estimated from a separate 5-fold run -- NOT this exact model (which saw every slide). When retraining with more data, compare new CV numbers against these as a baseline."
+}
