@@ -10,7 +10,7 @@ Usage:
         --um_per_px 0.1730 \
         --output pixel_sizes_ctx.csv
 
-For the all cortex images:
+For cortex images:
     Scale bar: 289 pixels = 50um -> 50/289 = 0.1730 um/px
 """
 
