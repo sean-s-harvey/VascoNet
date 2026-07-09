@@ -2,7 +2,7 @@
 ### Automated quantification of vascular density and morphology in brain immunofluorescence images
 
 A deep learning pipeline for automated segmentation and quantification of blood
-vessels in immunofluorescence images of brain tissue stained with the endotheilal cell marker CD31. Built on a U-Net architecture with an EfficientNetB0 encoder pretrained on ImageNet, trained and validated on images acquired from two brain regions (cortex and striatum) in mice. All data used for training were acquired across multiple experiments, experimenters, staining batches, imaging setups (10x and 20x magnification). 
+vessels in immunofluorescence images of brain tissue stained with the endotheilal cell marker CD31. Built on a U-Net architecture with an EfficientNetB0 encoder pretrained on ImageNet, trained and validated on images acquired from two brain regions (cortex and striatum) in mice. All data used for training were acquired across multiple experiments, experimenters, staining batches, and imaging setups (10x and 20x magnification). 
 
 **Validated metrics (5-fold cross-validation, 49 annotated images):**
 - Mean absolute error in vascular area fraction: 0.0166
