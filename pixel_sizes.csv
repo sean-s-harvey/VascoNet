@@ -3,15 +3,6 @@ filename,um_per_px
 # If you leave this file empty or don't provide it, morphology metrics (vessel
 # diameter etc.) will be reported in pixels instead of micrometers.
 #
-# How to find your pixel size:
-#   - If your images have a scale bar: measure the scale bar in pixels in ImageJ
-#     (Analyze -> Measure), then divide the known length by the pixel count.
-#     Example: scale bar = 298 pixels = 50 um -> 50/298 = 0.168 um/px
-#   - If you know your objective magnification: check your microscope camera's
-#     specification sheet for sensor pixel size, then divide by magnification.
-#   - In Zeiss ZEN: shown in the bottom status bar as "X.XX um/px"
-#   - In Leica LAS: shown in Image Properties
-#
 # Example entries (delete these and add your own):
 # image001.tif,0.168
 # image002.tif,0.168
