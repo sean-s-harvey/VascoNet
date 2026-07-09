@@ -14,10 +14,10 @@
 #SBATCH -e slurm-%j.err-%N        #Standard error
 #SBATCH -p hotel-gpu              #Partition name
 #SBATCH -q hotel-gpu              #QOS name
-#SBATCH -A htl158                 #Allocation name
+#SBATCH -A                        #Allocation name
 #SBATCH --mem=100G
 #SBATCH --mail-type BEGIN,END,FAIL
-#SBATCH --mail-user ssharvey@health.ucsd.edu   # <-- change to your real email
+#SBATCH --mail-user                # email address
 
 # Activate conda the same robust way setup_environment.sh does -- works
 # whether or not `conda init` has touched this particular shell.
