@@ -6,11 +6,11 @@ using a single pixel size value for all of them.
 
 Usage:
     python generate_pixel_sizes_csv.py \
-        --images novel_test/images/ \
+        --images path/to/images/ \
         --um_per_px 0.1730 \
         --output pixel_sizes_ctx.csv
 
-For the SOX18/CTX images:
+For the all cortex images:
     Scale bar: 289 pixels = 50um -> 50/289 = 0.1730 um/px
 """
 
