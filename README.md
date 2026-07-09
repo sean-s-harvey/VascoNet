@@ -2,12 +2,9 @@
 ### Automated quantification of vascular density and morphology in brain immunofluorescence images
 
 A deep learning pipeline for automated segmentation and quantification of blood
-vessels in immunofluorescence images of brain tissue stained with CD31
-or GLUT1. Built on a U-Net architecture with an EfficientNetB0 encoder pretrained
-on ImageNet, trained and validated on images from two brain regions (cortex and
-striatum) acquired across multiple experimenters and imaging setups. 
+vessels in immunofluorescence images of brain tissue stained with the endotheilal cell marker CD31. Built on a U-Net architecture with an EfficientNetB0 encoder pretrained on ImageNet, trained and validated on images acquired from two brain regions (cortex and striatum) in mice. All data used for training were acquired across multiple experiments, experimenters, staining batches, imaging setups (10x and 20x magnification). 
 
-**Validated metrics (5-fold cross-validation, 49 annotated slides):**
+**Validated metrics (5-fold cross-validation, 49 annotated images):**
 - Mean absolute error in vascular area fraction: 0.0166
 - Validation Dice coefficient: 0.8573
 - Validation IoU: 0.7796
@@ -58,16 +55,11 @@ python predict.py \
 ```
 
 Replace `green` with `red` or `blue` depending on which RGB channel contains
-your CD31/vessel signal. **This must be specified manually** — to check, open
-one image in ImageJ → Image → Color → Split Channels, and identify which
-channel shows bright vessel staining.
+your CD31/vessel signal. **This must be specified manually** 
 
 **4. (Optional) Add pixel sizes for morphology metrics in micrometers**
 
-Fill in `pixel_sizes.csv` with your image filenames and pixel size (μm/px),
-then add `--pixel_sizes pixel_sizes.csv` to the command above. See the template
-and instructions inside `pixel_sizes.csv`. If omitted, diameter metrics are
-reported in pixels.
+Fill in `pixel_sizes.csv` with your image filenames and pixel size (μm/px), or alternatively, you can use the `generate_pixel_sizes_csv.py` script. Then, add `--pixel_sizes pixel_sizes.csv` to the command above. See the template and instructions inside `pixel_sizes.csv`. If omitted, vessel morphology metrics, such as diameter and circularity are reported in pixels.
 
 ---
 
@@ -108,9 +100,6 @@ Running `predict.py` creates the following in your output folder:
 - TensorFlow 2.15 or higher
 - See `requirements.txt` for full dependency list
 
-Predictions run on CPU if no GPU is available, but will be substantially
-faster with a CUDA-compatible GPU.
-
 ---
 
 ## Supported image types
@@ -119,10 +108,9 @@ faster with a CUDA-compatible GPU.
 - PNG (`.png`)
 - JPEG (`.jpg`, `.jpeg`) — not recommended; lossy compression may affect results
 
-Images of any size are supported. The tool automatically:
+Images of any size are supported. The tool:
 - Handles images where CD31 is in any RGB channel (red, green, or blue)
-- Removes black border padding from ROI-masked images or images that go beyond tissue border (e.g., sections
-  where tissue outside the region of interest is zeroed out)
+- Automatically removes black border padding from ROI-masked images or images that go beyond tissue border (e.g., sections where tissue outside the region of interest is zeroed out)
 - Tiles large images into 256×256 patches for model input, then stitches
   predictions back to full resolution
 
@@ -141,8 +129,7 @@ pretrained encoder features before the decoder has learned anything useful.
 
 **Phase 2 (fine-tuning, 30 epochs max):** The encoder is unfrozen and the
 entire network is fine-tuned end-to-end at a learning rate 100× smaller than
-Phase 1 (1×10⁻⁵ vs. 1×10⁻³). This allows the encoder to specialize toward
-IHC-specific vessel features while retaining the general visual feature
+Phase 1 (1×10⁻⁵ vs. 1×10⁻³). This allows the encoder to specialize toward specific vessel features while retaining the general visual feature
 representations learned from ImageNet.
 
 Early stopping with `patience=5` (Phase 1) and `patience=8` (Phase 2) prevents
@@ -181,7 +168,7 @@ tiles receive no augmentation.
 ### Evaluation
 
 Model performance was evaluated using slide-level 5-fold cross-validation
-(~39 train / ~10 val per fold), where all splits are performed at the slide
+(39 train / 10 val per fold), where all splits are performed at the slide
 level to prevent data leakage between tiles from the same source image.
 
 The primary biological evaluation metric is **per-image area fraction absolute
@@ -236,11 +223,11 @@ artifacts).
 |---|---|
 | Brain regions | Cortex, striatum |
 | Staining marker | CD31 |
-| Annotation method | Manual vessel tracing in ImageJ/Fiji (ROI sets) |
-| Annotation source | Multiple annotators across two laboratories |
+| Annotation method | Particle Analysis and manual vessel tracing in ImageJ/Fiji (ROI sets) |
+| Annotation source | Multiple annotators across multiple experiments from the Daneman lab |
 | Imaging systems | Multiple setups (10x and 20x objectives) |
 | Image dimensions | 3008×4096 (cortex), 5000–7500×5000–6000 (striatum, pre-crop) |
-| Pixel size | 0.173 μm/px (cortex), pixel units maintained for striatum samples |
+| Scale | 0.173 μm/px (cortex), pixel units maintained for striatum samples |
 
 **Quality control:** Two cortex slides were excluded prior to training and documented
 explicitly:
@@ -290,7 +277,7 @@ conda activate vessel-seg
 
 ### Data preparation
 
-Annotated images and corresponding ImageJ RoiSet.zip files should be organized as:
+Images and their corresponding ImageJ RoiSet.zip file annotations should be organized as:
 
 ```
 data/
@@ -305,8 +292,7 @@ module converts ROI files to binary masks automatically during training.
 
 **Interactive (notebook):** open `notebooks/vessel_segmentation_walkthrough.ipynb`
 in Jupyter Lab. This walks through every step of the pipeline cell-by-cell with
-explanations, visualizations, and commentary — designed to be educational as well
-as functional.
+explanations and visualizations. Written to be educational and functional.
 
 **Batch (5-fold cross-validation):** on an HPC system with SLURM:
 
@@ -361,14 +347,11 @@ To assess VascoNet's performance on entirely new, previously unseen images
 acquired independently of the training set, we applied the final model to
 **17 cortical brain sections** from a mouse model of hypoxia:
 
-- **8 normoxia** — mice housed under standard atmospheric oxygen conditions
+- **8 normoxia** — mice housed under standard oxygen conditions
 - **9 hypoxia** — mice exposed to hypoxic conditions (8% O₂) for one week
 
 Hypoxia is a well-established driver of angiogenesis and vascular remodeling
-across organs including the brain. Cortical sections from hypoxic animals are
-therefore expected to show significantly increased vascular density and altered
-vessel morphology relative to normoxic controls — providing a biologically
-grounded ground truth against which to validate automated measurements.
+across organs including the brain. Cortical sections from hypoxic animals  show significantly increased vascular density and diameters relative to normoxic controls — providing a biologically grounded contrast to validate automated measurements.
 
 ### Vascular density: VascoNet vs. manual quantification
 
@@ -386,8 +369,8 @@ increase in vascular density in hypoxic animals. Representative images are shown
 ### Additional morphology metrics from VascoNet
 
 Beyond vascular density — the only metric quantified manually — VascoNet
-additionally provides vessel morphology measurements that are incredibly difficult to extract by hand at scale. These include vessel count, mean, median and
-maximum vessel diameter (a marker of vasodilation).
+additionally provides vessel morphology measurements that are difficult and time-consuming to manually measure at scale. These include vessel count, mean, median and
+maximum vessel diameter (markers of vasodilation).
 
 ![Vascular morphology metrics: normoxia vs hypoxia](results/figures/vessel_morphology_metrics.png)
 
@@ -397,10 +380,7 @@ without any additional annotation or manual measurement.
 
 ### Images and pixel calibration
 
-Images were acquired on a Zeiss ZEN (blue edition) fluorescence microscope
-at 10× magnification. Individual fluorescence channels were exported as
-separate TIFFs and merged into RGB composites for model input (CD31 in green). Scale: 0.1730 μm/px
-(289 px = 50 μm, confirmed from scale bar).
+Images were acquired using an Axio Imager.M2 microscope with Axiocam 712 mono camera and Zen blue (v3.3.89.0000) software (Zeiss). Individual fluorescence channels were exported as separate TIFFs and merged into RGB composites for model input (CD31 in green). Scale: 0.1730 μm/px (289 px = 50 μm, confirmed from scale bar).
 
 ---
 
