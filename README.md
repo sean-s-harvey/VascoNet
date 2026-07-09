@@ -387,7 +387,7 @@ Images were acquired using an Axio Imager.M2 microscope with Axiocam 712 mono ca
 
 ## Citation
 
-If you use this tool or model in your research, please cite:
+If you use this tool in your work, please cite:
 
 > [Citation to be added upon publication]
 
