@@ -335,6 +335,72 @@ Expected runtime: 8–12 hours depending on GPU.
 
 ---
 
+## Final model training
+
+Following cross-validation, a final model (`final_model.keras`) was trained on
+all 49 annotated slides with no held-out validation set. This is the model
+distributed via Zenodo and used for all predictions described below.
+
+Training on the full dataset follows the same two-phase schedule as each
+cross-validation fold: Phase 1 (encoder frozen, decoder warm-up, up to 15
+epochs) followed by Phase 2 (full fine-tuning at 1×10⁻⁵ learning rate, up to
+30 epochs). Since no validation set is held out, early stopping is not applied
+— epoch counts are informed by what the cross-validation folds typically
+required before convergence.
+
+The cross-validation results (see `results/cv_results.json`) serve as the
+honest generalization estimate for this model: they describe expected
+performance on unseen images using the same training recipe, evaluated across
+all possible slide groupings.
+
+---
+
+## Biological validation on novel test data
+
+To assess VascoNet's performance on entirely new, previously unseen images
+acquired independently of the training set, we applied the final model to
+**17 cortical brain sections** from a mouse model of hypoxia:
+
+- **8 normoxia** — mice housed under standard atmospheric oxygen conditions
+- **9 hypoxia** — mice exposed to hypoxic conditions (8% O₂) for one week
+
+Hypoxia is a well-established driver of angiogenesis and vascular remodeling
+across organs including the brain. Cortical sections from hypoxic animals are
+therefore expected to show significantly increased vascular density and altered
+vessel morphology relative to normoxic controls — providing a biologically
+grounded ground truth against which to validate automated measurements.
+
+### Vascular density: VascoNet vs. manual quantification
+
+Vascular area fraction (% vessel coverage) was independently quantified
+manually by a trained undergraduate researcher prior to automated analysis,
+providing a blinded human benchmark. VascoNet's automated measurements
+closely replicated the human quantifications, including detecting the expected
+increase in vascular density in hypoxic animals.
+
+![Vascular density: normoxia vs hypoxia](results/figures/vessel_density_comparison.png)
+
+### Additional morphology metrics from VascoNet
+
+Beyond vascular density — the only metric quantified manually — VascoNet
+additionally provides vessel morphology measurements that are incredibly difficult to extract by hand at scale. These include vessel count, mean, median and
+maximum vessel diameter (a marker of vasodilation).
+
+![Vascular morphology metrics: normoxia vs hypoxia](results/figures/vessel_morphology_metrics.png)
+
+These additional metrics reflect the vascular remodeling response to hypoxia
+beyond simple density changes, and are provided automatically by VascoNet
+without any additional annotation or manual measurement.
+
+### Images and pixel calibration
+
+Images were acquired on a Zeiss ZEN (blue edition) fluorescence microscope
+at 10× magnification. Individual fluorescence channels were exported as
+separate TIFFs and merged into RGB composites for model input (CD31 in green). Scale: 0.1730 μm/px
+(289 px = 50 μm, confirmed from scale bar).
+
+---
+
 ## Citation
 
 If you use this tool or model in your research, please cite:
@@ -347,7 +413,7 @@ The trained model weights are permanently archived at:
 
 ## License
 
-Creative Commons Attribution 4.0 International
+Creative Commons Attribution 4.0 International<br>
 MIT
 
 ---
