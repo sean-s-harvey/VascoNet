@@ -19,7 +19,7 @@ def code(text):
 # SECTION 0: Introduction
 # ============================================================================
 md("""
-# Vessel Segmentation: A Deep Learning Walkthrough
+# Vessel Segmentation and Building VascoNet:
 
 This notebook builds and trains a U-Net to automate vessel tracing in mouse 
 brain immunofluorescence images, going step by step so you can see and understand 
@@ -267,7 +267,7 @@ md("""
 
 **Transfer learning:** the encoder starts with weights already trained on
 1.2M natural images (ImageNet), giving it general visual feature detectors
-(edges, textures, shapes) without needing to learn them from your 49 slides.
+(edges, textures, shapes) without needing to learn them from our 49 images.
 """)
 
 code("""
