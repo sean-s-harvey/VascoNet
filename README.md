@@ -1,8 +1,9 @@
 # VascoNet
-### Automated quantification of vascular density and morphology in brain immunofluorescence images
+### a U-Net model for automated vessel segmentation in brain immunofluorescence images
 
-A deep learning pipeline for automated segmentation and quantification of blood
-vessels in immunofluorescence images of brain tissue stained with the endotheilal cell marker CD31. Built on a U-Net architecture with an EfficientNetB0 encoder pretrained on ImageNet, trained and validated on images acquired from two brain regions (cortex and striatum) in mice. All data used for training were acquired across multiple experiments, experimenters, staining batches, and imaging setups (10x and 20x magnification). 
+Accurate quantification of cerebrovascular histology is vital for assessing vascular phenotypes, yet experimental biologists are routinely burdened by manual image annotation — sacrificing weeks of time while introducing substantial batch effects from variability between annotators, staining batches, and imaging sessions. To overcome this, we developed *VascoNet*: a deep learning model for automated segmentation and quantification of blood vessels in brain immunofluorescence images.
+
+VascoNet is built on a U-Net architecture with an EfficientNetB0 encoder pretrained on ImageNet, trained and validated on images from two brain regions (cortex and striatum) acquired across multiple experiments, experimenters, staining batches, and imaging setups (10x and 20x magnification). The model was trained on NVIDIA GPUs provided by the San Diego Supercomputer Center (SDSC) Triton Shared Computing Cluster (TSCC) at UC San Diego. VascoNet achieves human-level performance on previously unseen test images and was independently validated on a hypoxia mouse model, reliably detecting increases in vascular density and vasodilation in cortical brain sections — phenotypes driven by hypoxia-induced angiogenesis and vascular remodeling. VascoNet provides vascular biologists with a reliable, scalable alternative to manual vessel quantification, reclaiming hours of time for other experimental priorities.
 
 **Validated metrics (5-fold cross-validation, 49 annotated images):**
 - Mean absolute error in vascular area fraction: 0.0166
