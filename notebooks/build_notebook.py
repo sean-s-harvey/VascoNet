@@ -21,14 +21,14 @@ def code(text):
 md("""
 # Vessel Segmentation: A Deep Learning Walkthrough
 
-This notebook builds and trains a U-Net to automate vessel tracing in IHC
-images, going step by step so you can see and understand each piece.
+This notebook builds and trains a U-Net to automate vessel tracing in mouse 
+brain immunofluorescence images, going step by step so you can see and understand 
+each piece.
 
-**Assumed background:** Andrew Ng's Machine Learning Specialization (cost
-functions, gradient descent) and most of the Deep Learning Specialization
-(neural networks, CNNs, forward/backward pass). This notebook connects that
-foundation to the following ideas:
+**Assumed background:** Familiarity with cost functions, gradient descent, neural 
+networks, CNNs, and forward/backward propagation.
 
+**Additional concepts:**
 - **Transfer learning** — reusing a network pretrained on ImageNet as a
   starting point for vessel segmentation
 - **Semantic segmentation** — predicting a label for *every pixel*
@@ -79,10 +79,6 @@ from losses_metrics import (
 # ============================================================================
 md("""
 ## 2. Load and inspect your data
-
-Point this at your data folder. We match each image to its ROI file by
-filename stem, then inspect a few examples before doing anything else.
-Always look at your data before training on it.
 """)
 
 code("""
@@ -98,8 +94,7 @@ for r in records[:5]:
 md("""
 ### Sanity check: rasterized mask area fraction vs. manual measurement
 
-The most important check before trusting anything downstream. The automatically
-rasterized mask area fraction should match your manually recorded value closely.
+The rasterized mask area fraction should match your manually recorded value closely.
 Large differences indicate a coordinate-space mismatch between image and ROI.
 
 **Note:** for striatum images with black-padded borders, `load_image_and_mask_cropped`
@@ -149,7 +144,7 @@ md("""
 
 Full-resolution images are too large to feed into the network at once (GPU
 memory limits) and the network architecture requires input dimensions
-divisible by 32. We cut each image into 256x256 tiles.
+divisible by 32. So we cut each image into 256x256 tiles.
 
 The effective training set size is much larger than the number of slides:
 a 4096x3008 image at stride=192 produces hundreds of tiles, each its own
@@ -184,16 +179,16 @@ plt.show()
 md("""
 ## 4. Slide-level train / val / test split
 
-**Critical:** always split at the slide level, not the tile level. If tiles
+Data was always split at the slide level, not the tile level. If tiles
 from the same slide appear in both training and validation, the model can
-memorize slide-specific staining quirks rather than learning vessel morphology
--- producing artificially inflated validation performance.
+memorize slide-specific staining quirks rather than learning vessel morphology, 
+artificially inflated validation performance.
 
 With a slide-level split:
 - Gradient descent only sees training tiles
 - Validation tiles measure generalization but also guide early stopping and
   checkpoint selection (slightly optimistic)
-- Test tiles are untouched until final evaluation -- the honest number
+- Test tiles are untouched until final evaluation
 """)
 
 code("""
@@ -418,13 +413,6 @@ val_ds   = make_tf_dataset(X_val,   Y_val,   augment=False,
 """)
 
 md("""
-`model.fit` runs the standard loop you know from the ML Specialization:
-forward pass → compute loss → backward pass (backprop) → Adam update.
-This repeats once per batch (8 tiles), 1142+ times per epoch.
-
-`EarlyStopping(patience=5)` stops training if val_loss doesn't improve for
-5 consecutive epochs, then restores the best-epoch weights automatically.
-
 **Note on val metrics:** val always looks better than train on Dice/IoU
 because training tiles are augmented (harder) while validation tiles are
 clean. This is expected and not a sign of data leakage.
@@ -463,13 +451,10 @@ md("""
 Now that the decoder has learned something sensible, we unfreeze the encoder
 and fine-tune the entire network at a learning rate 100× smaller (1e-5).
 
-**Why so much smaller?** The encoder's pretrained weights are already good.
-A large learning rate would erase them; a small one lets them specialize
-gently toward your IHC images (adapting to your specific stain colors and
-vessel morphology) without forgetting general visual features.
-
-`restore_best_weights=True` means you always end up with the best-epoch
-weights regardless of when EarlyStopping triggers.
+A smaller learning rate is used because the encoder's pretrained weights are 
+already good. A large learning rate would erase them; a small one lets them 
+specialize gently towards vessel images (adapting to your specific stain colors 
+and vessel morphology) without forgetting general visual features.
 """)
 
 code("""
@@ -531,13 +516,11 @@ plt.tight_layout(); plt.show()
 md("""
 ## 11. Visual inspection: original image | true mask | predicted mask
 
-Always check predictions visually before reporting any numbers. Metrics
-tell you *how much* the model is wrong; images tell you *where and why*.
 
 For each image we show:
-- **Original IHC image** — what the microscope captured
-- **True mask** — your manual vessel tracings (ground truth)
-- **Predicted mask** — what the model automatically detected
+- **Original IHC image**
+- **True mask** — manual/ImageJ vessel tracings (ground truth)
+- **Predicted mask** — automated detection by model
 """)
 
 code("""
@@ -597,8 +580,8 @@ md("""
 The primary biological metric: how closely does the model's automated area
 fraction match your manual measurement, per whole image?
 
-This is evaluated on the test set -- slides the model and training process
-never touched in any way -- giving an honest, unbiased performance estimate.
+This is evaluated on the test set, slides the model and training process
+never touched in any way, giving an honest, unbiased performance estimate.
 
 **Bland-Altman plot:** the standard method validation plot in biomedical
 research. Plots mean of automated+manual (x-axis) vs. their difference
@@ -675,16 +658,15 @@ md("""
 ## 13. Full pixel-level metrics on test images
 
 Back-calculated on whole stitched images after training -- not from the
-epoch-averaged training log. This gives one clean value per metric per image,
-which is more meaningful for a methods paper.
+epoch-averaged training log. This gives one clean value per metric per image.
 
 **Metrics reported:**
 - **Dice:** overlap between predicted and true vessel regions (primary metric)
 - **IoU:** stricter overlap (penalises both over and under prediction)
 - **Precision:** of pixels called vessel, what fraction actually were?
-  Low precision = over-prediction (e.g. artifact images like 16Cm5)
+  Low precision = over-prediction 
 - **Recall:** of actual vessel pixels, what fraction were found?
-  Low recall = under-prediction (e.g. faint-signal images like 18Dm)
+  Low recall = under-prediction 
 - **Specificity:** of background pixels, what fraction correctly unlabeled?
   Low specificity directly inflates area fraction measurements
 """)
@@ -775,7 +757,7 @@ morphological measurements for each individual vessel:
 
 - **Vessel count** — number of discrete vessel segments
 - **Mean / median diameter** — typical vessel caliber
-- **Max diameter** — widest vessel; primary marker of vasodilation
+- **Max diameter** — widest vessel in a given image
 - **Circularity** — 1.0 = perfect circle; lower = elongated
 - **Elongation** — major / minor axis ratio
 
@@ -785,7 +767,7 @@ that point. Maximum distance × 2 = vessel diameter at its widest. This is
 robust to irregular shapes and tortuous paths.
 
 **Pixel size:** update `PIXEL_SIZES` below for morphology in micrometers.
-Original cohort: 298px = 50μm → 0.168 μm/px. MA images: confirm from
+Original cohort: 289px = 50μm → 0.173 μm/px. MA images: confirm from
 acquisition metadata or measure a scale bar in ImageJ.
 """)
 
@@ -913,26 +895,21 @@ md("""
 ## 15. Next steps
 
 **If val/test Dice or area fraction look poor:**
-- Check the visual predictions (Section 11) to understand *where* errors are
+- Check the visual predictions (Section 11) to understand where errors are
 - Inspect the precision/recall split: low precision = over-prediction
   (artifacts/bright images); low recall = under-prediction (faint signal)
 - Consider whether problematic images warrant exclusion with documented reasons
 
-**For an honest overall performance estimate:**
-- Run the full 5-fold cross-validation via `train.py` / `submit_cv_training.sh`
+**Overall performance estimate:**
+- 5-fold cross-validation via `train.py` / `submit_cv_training.sh`
 - The CV summary averages over all possible slide groupings, more stable than
   any single train/val/test split
 
 **For deployment:**
 - Use `predict.py` with the trained `final_model.keras` -- handles arbitrary
-  image sizes, CD31 in any channel, and black-bordered ROI images automatically
+  image sizes, vessel marker in any channel, and black-bordered ROI images automatically
 - `vessel_morphology.py` provides the same diameter/circularity metrics as
   Section 14 for deployment predictions
-
-**For the GitHub repo:**
-- Commit `results_v2/` (cv_results.json, training curves) as reproducibility evidence
-- Upload `final_model.keras` to Zenodo for a citable DOI
-- See `README_github.md` for the complete repo structure guide
 """)
 
 # ============================================================================
