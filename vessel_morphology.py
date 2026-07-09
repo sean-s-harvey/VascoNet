@@ -7,7 +7,7 @@ Computes morphological metrics from a binary vessel segmentation mask:
   - Vessel count
   - Vessel elongation / circularity (shape descriptors)
 
-All spatial measurements reported in real-world units (micrometers) when
+All morphology measurements reported in real-world units (micrometers) when
 pixel_size_um is provided, or in pixels if not.
 
 Core method: distance transform-based diameter estimation.
@@ -16,8 +16,7 @@ from each vessel pixel to the nearest non-vessel pixel (i.e., the nearest
 edge). The maximum distance transform value within a vessel = the radius of
 the largest inscribed circle at that vessel's widest point. Doubling this
 gives the vessel diameter at that point. This is robust to irregular vessel
-shapes and tortuous paths -- more reliable than ellipse fitting for the
-complex vessel morphology seen in brain IHC.
+shapes and tortuous paths.
 
 Dependencies: scipy, scikit-image, numpy
 """
@@ -27,8 +26,8 @@ from scipy import ndimage
 from skimage import measure
 
 
-# Pixel size for original cohort: 298 pixels = 50um -> 50/298 um/pixel
-PIXEL_SIZE_ORIGINAL_COHORT_UM = 50.0 / 298.0  # ~0.168 um/pixel
+# Pixel size for original cohort: 298 pixels = 50um -> 50/289 um/pixel
+PIXEL_SIZE_ORIGINAL_COHORT_UM = 50.0 / 289.0  # ~0.173 um/pixel
 
 
 def calculate_vessel_morphology(
@@ -187,8 +186,7 @@ def print_morphology_summary(stem, metrics):
     print(f"    Area fraction:     {metrics['area_fraction']:.4f}")
     print(f"    Mean diameter:     {metrics['mean_diameter']:.2f} {u}")
     print(f"    Median diameter:   {metrics['median_diameter']:.2f} {u}")
-    print(f"    Max diameter:      {metrics['max_diameter']:.2f} {u}  "
-          f"<-- vasodilation marker")
+    print(f"    Max diameter:      {metrics['max_diameter']:.2f} {u}")
     print(f"    Std diameter:      {metrics['std_diameter']:.2f} {u}")
     print(f"    Mean circularity:  {metrics['mean_circularity']:.3f}  "
           f"(1.0=circle, <1=elongated)")
