@@ -22,8 +22,8 @@ md("""
 # Vessel Segmentation and Building VascoNet:
 
 This notebook builds and trains a U-Net to automate vessel tracing in mouse 
-brain immunofluorescence images, going step by step so you can see and understand 
-each piece.
+brain immunofluorescence images, going step by step through how we developed
+VascoNet.
 
 **Assumed background:** Familiarity with cost functions, gradient descent, neural 
 networks, CNNs, and forward/backward propagation.
