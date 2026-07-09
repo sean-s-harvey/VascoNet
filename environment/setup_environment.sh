@@ -1,9 +1,8 @@
 #!/bin/bash
 # ============================================================================
-# One-time environment setup for the vessel segmentation pipeline on TSCC.
+# One-time environment setup for the vessel segmentation pipeline.
 #
-# Assumes you already have (mini)conda set up and working on TSCC, as you
-# normally do. This just creates a new environment and installs into it.
+# Assumes you already have (mini)conda set up and working.
 #
 # Usage:
 #   bash setup_environment.sh
@@ -54,19 +53,9 @@ pip install albumentations roifile pillow numpy -q
 echo ""
 echo "=== Step 4: Installing Jupyter ==="
 pip install jupyterlab notebook ipywidgets matplotlib -q
-# jupyterlab: the modern Jupyter interface
-# notebook: provides the classic `jupyter-notebook` executable specifically --
-#   jupyterlab does NOT pull this in on its own (it only depends on a thin
-#   compatibility shim), so without this, launchers that invoke
-#   `jupyter-notebook` directly (e.g. galyleo's `--jupyter notebook` flag)
-#   fail with "Jupyter command `jupyter-notebook` not found"
-# ipywidgets: needed for live-updating plots/progress bars inside notebook cells
-# matplotlib: for plotting loss curves, sample predictions, etc.
 
 # Register this environment as a Jupyter kernel, so it shows up as a
-# selectable kernel ("vessel-seg") in the Jupyter interface -- without this,
-# Jupyter would default to whatever environment it was launched from, which
-# may not have any of the packages we just installed.
+# selectable kernel ("vessel-seg") in the Jupyter interface. 
 python -m ipykernel install --user --name vessel-seg --display-name "Python (vessel-seg)"
 
 echo ""
