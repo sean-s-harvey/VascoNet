@@ -1,6 +1,6 @@
 """
-Tile full-resolution IHC images + masks into fixed-size patches for training,
-and split data at the SLIDE level (not patch level) to avoid leakage.
+Tile full-resolution images + masks into fixed-size tiles for training,
+and splits data at the sample level (not tile level) to avoid leakage.
 
 Directory convention expected:
     data/
@@ -65,8 +65,8 @@ def auto_crop_to_tissue(img, mask, black_threshold=10, padding=64):
 
     Works universally: for images with no black border (full tissue sections),
     the detected bounding box covers essentially the whole image and the crop
-    is a no-op. For striatum-style images, it trims the black padding and
-    returns only the tissue-containing region.
+    is a no-op. For cropped images, such as our striatum samples, it trims the 
+    black padding and returns only the tissue-containing region.
 
     Parameters
     ----------
@@ -203,7 +203,7 @@ def tile_image_and_mask(img, mask, tile_size=256, stride=None, min_tissue_frac=0
 
 def split_records_by_slide(records, val_frac=0.15, test_frac=0.15, seed=42):
     """
-    Split at the SLIDE level so patches from the same source image never
+    Split at the sample level so patches from the same source image never
     appear in more than one of train/val/test. This is the split that
     matters for getting an honest performance estimate.
     """
