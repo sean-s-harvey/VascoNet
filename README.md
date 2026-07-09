@@ -1,5 +1,5 @@
 # VascoNet
-### a U-Net model for automated vessel segmentation in brain immunofluorescence images
+### A U-Net model for automated vessel segmentation in brain immunofluorescence images
 
 Accurate quantification of cerebrovascular histology is vital for assessing vascular phenotypes, yet experimental biologists are routinely burdened by manual image annotation — sacrificing weeks of time while introducing substantial batch effects from variability between annotators, staining batches, and imaging sessions. To overcome this, we developed **VascoNet**: a deep learning model for automated segmentation and quantification of blood vessels in brain immunofluorescence images.
 
