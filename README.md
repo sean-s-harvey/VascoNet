@@ -376,7 +376,10 @@ Vascular area fraction (% vessel coverage) was independently quantified
 manually by a trained undergraduate researcher prior to automated analysis,
 providing a blinded human benchmark. VascoNet's automated measurements
 closely replicated the human quantifications, including detecting the expected
-increase in vascular density in hypoxic animals.
+increase in vascular density in hypoxic animals. Representative images are shown below, where 22Am2_CTX is a normoxic sample, and 32Cmb3_CTX is a hypoxic sample.
+
+![Normoxic Example](results/figures/22Am2_CTX_overlay.png)
+![Hypoxic Example](results/figures/32Cmb3_CTX_overlay.png)
 
 ![Vascular density: normoxia vs hypoxia](results/figures/vessel_density_comparison.png)
 
