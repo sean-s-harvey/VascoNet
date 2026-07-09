@@ -2,11 +2,10 @@
 Loss functions and metrics for binary vessel segmentation.
 
 Why Dice+BCE: vessel pixels are typically a small minority of total tissue
-pixels (class imbalance), and plain BCE alone tends to be dominated by the
-easy majority (background) class. Dice loss directly optimizes the overlap
-metric you actually care about; combining with BCE keeps gradients stable
-early in training when Dice loss alone can be noisy/uninformative on mostly-
-empty masks.
+pixels, and plain BCE alone tends to be dominated by the easy majority (background) 
+class. Dice loss directly optimizes the overlap metric; 
+combining with BCE keeps gradients stable early in training when Dice loss alone 
+can be noisy/uninformative on mostly-empty masks.
 """
 
 import tensorflow as tf
@@ -58,8 +57,6 @@ def precision_metric(y_true, y_pred, threshold=0.5, smooth=1e-6):
     Precision = TP / (TP + FP)
     "Of the pixels the model called vessel, what fraction actually were?"
     Low precision = model is over-predicting (false positives).
-    Relevant to your 16C failure mode -- bright/artifact images caused
-    the model to flag non-vessel areas as vessel.
     """
     y_pred_bin = tf.cast(y_pred > threshold, tf.float32)
     y_true_f = tf.reshape(y_true, [-1])
@@ -74,8 +71,6 @@ def recall_metric(y_true, y_pred, threshold=0.5, smooth=1e-6):
     Recall (Sensitivity) = TP / (TP + FN)
     "Of the actual vessel pixels, what fraction did the model find?"
     Low recall = model is under-predicting (false negatives, missing vessels).
-    Relevant to your 18D failure mode -- model was consistently missing
-    real vessel area in those slides.
     Note: Dice = 2 * (precision * recall) / (precision + recall),
     so Dice alone can't tell you which direction errors are going.
     Reporting precision and recall separately reveals that asymmetry.
