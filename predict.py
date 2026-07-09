@@ -11,24 +11,22 @@ Usage:
         --images  path/to/your/images/ \\
         --model   final_model.keras \\
         --output  results/ \\
+        --cd31_channel green \\
         [--pixel_sizes pixel_sizes.csv] \\
         [--tile_size 256] \\
         [--threshold 0.5]
 
 Supported image formats: .tif, .tiff, .png, .jpg, .jpeg
 
-CD31 channel detection:
-    The script auto-detects which RGB channel contains the CD31/vessel
-    signal (works for red, green, or blue channel conventions) and
-    normalizes to the expected channel before prediction. No manual
-    specification needed.
+CD31 channel specification:
+    Replace green with red or blue depending on which RGB channel contains your CD31/vessel signal.
 
 Pixel sizes (optional):
     If you provide a pixel_sizes.csv file (two columns: filename, um_per_px),
     morphology metrics (vessel diameter etc.) will be reported in micrometers.
     Otherwise they are reported in pixels. Example pixel_sizes.csv:
         filename,um_per_px
-        image001.tif,0.168
+        image001.tif,0.173
         image002.tif,0.336
 
 Requirements:
