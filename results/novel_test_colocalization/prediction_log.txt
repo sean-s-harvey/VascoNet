@@ -1,0 +1,203 @@
+2026-07-10 14:48:15  ============================================================
+2026-07-10 14:48:15  Vessel Segmentation Tool
+2026-07-10 14:48:15  Started: 2026-07-10 14:48:15
+2026-07-10 14:48:15  ============================================================
+2026-07-10 14:48:15  Found 17 images to process
+2026-07-10 14:48:15  Loading model from results_v2/final_model.keras...
+2026-07-10 14:48:17  Model loaded successfully
+2026-07-10 14:48:17  Loaded pixel sizes for 17 images
+2026-07-10 14:48:17  Vessel channel: green (applied to all images)
+2026-07-10 14:48:17  [1/17] Processing 22Am2_CTX.tif...
+2026-07-10 14:48:17    Vessel channel: green (user-specified)
+2026-07-10 14:48:44    Mask saved: 22Am2_CTX_Mask.tif
+2026-07-10 14:48:44    Pixel size: 0.173 um/px
+2026-07-10 14:48:51    Area fraction: 0.0701
+2026-07-10 14:48:51    Vessels detected: 278
+2026-07-10 14:48:51    Mean diameter: 5.13 um
+2026-07-10 14:48:51    Max diameter:  14.63 um (vasodilation marker)
+2026-07-10 14:49:03    Co-localization (red on vessel): 2.38%
+2026-07-10 14:49:03    Co-localization (vessel on red): 16.44%
+2026-07-10 14:49:13    Overlay saved: data/novel_test/results_coloc2/overlays/22Am2_CTX_overlay.png
+2026-07-10 14:49:13  [2/17] Processing 22Am3_CTX.tif...
+2026-07-10 14:49:13    Vessel channel: green (user-specified)
+2026-07-10 14:49:39    Mask saved: 22Am3_CTX_Mask.tif
+2026-07-10 14:49:39    Pixel size: 0.173 um/px
+2026-07-10 14:49:46    Area fraction: 0.0709
+2026-07-10 14:49:46    Vessels detected: 287
+2026-07-10 14:49:46    Mean diameter: 5.14 um
+2026-07-10 14:49:46    Max diameter:  17.18 um (vasodilation marker)
+2026-07-10 14:49:57    Co-localization (red on vessel): 10.41%
+2026-07-10 14:49:57    Co-localization (vessel on red): 52.68%
+2026-07-10 14:50:08    Overlay saved: data/novel_test/results_coloc2/overlays/22Am3_CTX_overlay.png
+2026-07-10 14:50:08  [3/17] Processing 22Am4_CTX.tif...
+2026-07-10 14:50:08    Vessel channel: green (user-specified)
+2026-07-10 14:50:33    Mask saved: 22Am4_CTX_Mask.tif
+2026-07-10 14:50:33    Pixel size: 0.173 um/px
+2026-07-10 14:50:41    Area fraction: 0.0663
+2026-07-10 14:50:41    Vessels detected: 299
+2026-07-10 14:50:41    Mean diameter: 5.55 um
+2026-07-10 14:50:41    Max diameter:  17.95 um (vasodilation marker)
+2026-07-10 14:50:52    Co-localization (red on vessel): 13.17%
+2026-07-10 14:50:52    Co-localization (vessel on red): 45.14%
+2026-07-10 14:51:03    Overlay saved: data/novel_test/results_coloc2/overlays/22Am4_CTX_overlay.png
+2026-07-10 14:51:03  [4/17] Processing 22Am5_CTX.tif...
+2026-07-10 14:51:03    Vessel channel: green (user-specified)
+2026-07-10 14:51:28    Mask saved: 22Am5_CTX_Mask.tif
+2026-07-10 14:51:28    Pixel size: 0.173 um/px
+2026-07-10 14:51:34    Area fraction: 0.0432
+2026-07-10 14:51:34    Vessels detected: 211
+2026-07-10 14:51:34    Mean diameter: 4.71 um
+2026-07-10 14:51:34    Max diameter:  13.25 um (vasodilation marker)
+2026-07-10 14:51:45    Co-localization (red on vessel): 0.04%
+2026-07-10 14:51:45    Co-localization (vessel on red): 1.58%
+2026-07-10 14:51:55    Overlay saved: data/novel_test/results_coloc2/overlays/22Am5_CTX_overlay.png
+2026-07-10 14:51:55  [5/17] Processing 29Am1_CTX.tif...
+2026-07-10 14:51:55    Vessel channel: green (user-specified)
+2026-07-10 14:52:20    Mask saved: 29Am1_CTX_Mask.tif
+2026-07-10 14:52:20    Pixel size: 0.173 um/px
+2026-07-10 14:52:28    Area fraction: 0.0689
+2026-07-10 14:52:28    Vessels detected: 315
+2026-07-10 14:52:28    Mean diameter: 5.18 um
+2026-07-10 14:52:28    Max diameter:  15.69 um (vasodilation marker)
+2026-07-10 14:52:38    Co-localization (red on vessel): 4.99%
+2026-07-10 14:52:38    Co-localization (vessel on red): 32.81%
+2026-07-10 14:52:49    Overlay saved: data/novel_test/results_coloc2/overlays/29Am1_CTX_overlay.png
+2026-07-10 14:52:49  [6/17] Processing 29Am2_CTX.tif...
+2026-07-10 14:52:49    Vessel channel: green (user-specified)
+2026-07-10 14:53:13    Mask saved: 29Am2_CTX_Mask.tif
+2026-07-10 14:53:13    Pixel size: 0.173 um/px
+2026-07-10 14:53:19    Area fraction: 0.0364
+2026-07-10 14:53:19    Vessels detected: 224
+2026-07-10 14:53:19    Mean diameter: 3.57 um
+2026-07-10 14:53:19    Max diameter:  9.75 um (vasodilation marker)
+2026-07-10 14:53:30    Co-localization (red on vessel): 0.65%
+2026-07-10 14:53:30    Co-localization (vessel on red): 15.22%
+2026-07-10 14:53:41    Overlay saved: data/novel_test/results_coloc2/overlays/29Am2_CTX_overlay.png
+2026-07-10 14:53:41  [7/17] Processing 29Am3_CTX.tif...
+2026-07-10 14:53:41    Vessel channel: green (user-specified)
+2026-07-10 14:54:03    Mask saved: 29Am3_CTX_Mask.tif
+2026-07-10 14:54:03    Pixel size: 0.173 um/px
+2026-07-10 14:54:09    Area fraction: 0.0658
+2026-07-10 14:54:09    Vessels detected: 243
+2026-07-10 14:54:09    Mean diameter: 5.35 um
+2026-07-10 14:54:09    Max diameter:  15.16 um (vasodilation marker)
+2026-07-10 14:54:20    Co-localization (red on vessel): 10.18%
+2026-07-10 14:54:20    Co-localization (vessel on red): 38.41%
+2026-07-10 14:54:30    Overlay saved: data/novel_test/results_coloc2/overlays/29Am3_CTX_overlay.png
+2026-07-10 14:54:30  [8/17] Processing 29Am4_CTX.tif...
+2026-07-10 14:54:30    Vessel channel: green (user-specified)
+2026-07-10 14:54:52    Mask saved: 29Am4_CTX_Mask.tif
+2026-07-10 14:54:52    Pixel size: 0.173 um/px
+2026-07-10 14:54:59    Area fraction: 0.0846
+2026-07-10 14:54:59    Vessels detected: 264
+2026-07-10 14:54:59    Mean diameter: 6.02 um
+2026-07-10 14:54:59    Max diameter:  14.20 um (vasodilation marker)
+2026-07-10 14:55:11    Co-localization (red on vessel): 9.58%
+2026-07-10 14:55:11    Co-localization (vessel on red): 43.47%
+2026-07-10 14:55:21    Overlay saved: data/novel_test/results_coloc2/overlays/29Am4_CTX_overlay.png
+2026-07-10 14:55:21  [9/17] Processing 31Cf1_CTX.tif...
+2026-07-10 14:55:22    Vessel channel: green (user-specified)
+2026-07-10 14:55:47    Mask saved: 31Cf1_CTX_Mask.tif
+2026-07-10 14:55:47    Pixel size: 0.173 um/px
+2026-07-10 14:55:54    Area fraction: 0.0840
+2026-07-10 14:55:54    Vessels detected: 209
+2026-07-10 14:55:54    Mean diameter: 7.98 um
+2026-07-10 14:55:54    Max diameter:  18.39 um (vasodilation marker)
+2026-07-10 14:56:05    Co-localization (red on vessel): 16.41%
+2026-07-10 14:56:05    Co-localization (vessel on red): 64.36%
+2026-07-10 14:56:16    Overlay saved: data/novel_test/results_coloc2/overlays/31Cf1_CTX_overlay.png
+2026-07-10 14:56:16  [10/17] Processing 31Cf2_CTX.tif...
+2026-07-10 14:56:16    Vessel channel: green (user-specified)
+2026-07-10 14:56:42    Mask saved: 31Cf2_CTX_Mask.tif
+2026-07-10 14:56:42    Pixel size: 0.173 um/px
+2026-07-10 14:56:49    Area fraction: 0.0860
+2026-07-10 14:56:49    Vessels detected: 258
+2026-07-10 14:56:49    Mean diameter: 6.44 um
+2026-07-10 14:56:49    Max diameter:  18.32 um (vasodilation marker)
+2026-07-10 14:57:00    Co-localization (red on vessel): 0.05%
+2026-07-10 14:57:00    Co-localization (vessel on red): 4.19%
+2026-07-10 14:57:11    Overlay saved: data/novel_test/results_coloc2/overlays/31Cf2_CTX_overlay.png
+2026-07-10 14:57:11  [11/17] Processing 32Cf1_CTX.tif...
+2026-07-10 14:57:11    Vessel channel: green (user-specified)
+2026-07-10 14:57:36    Mask saved: 32Cf1_CTX_Mask.tif
+2026-07-10 14:57:36    Pixel size: 0.173 um/px
+2026-07-10 14:57:42    Area fraction: 0.0784
+2026-07-10 14:57:42    Vessels detected: 209
+2026-07-10 14:57:42    Mean diameter: 7.62 um
+2026-07-10 14:57:42    Max diameter:  15.92 um (vasodilation marker)
+2026-07-10 14:57:54    Co-localization (red on vessel): 17.55%
+2026-07-10 14:57:54    Co-localization (vessel on red): 58.92%
+2026-07-10 14:58:04    Overlay saved: data/novel_test/results_coloc2/overlays/32Cf1_CTX_overlay.png
+2026-07-10 14:58:04  [12/17] Processing 32Cf2_CTX.tif...
+2026-07-10 14:58:05    Vessel channel: green (user-specified)
+2026-07-10 14:58:30    Mask saved: 32Cf2_CTX_Mask.tif
+2026-07-10 14:58:30    Pixel size: 0.173 um/px
+2026-07-10 14:58:36    Area fraction: 0.0559
+2026-07-10 14:58:36    Vessels detected: 220
+2026-07-10 14:58:36    Mean diameter: 6.75 um
+2026-07-10 14:58:36    Max diameter:  19.34 um (vasodilation marker)
+2026-07-10 14:58:48    Co-localization (red on vessel): 16.72%
+2026-07-10 14:58:48    Co-localization (vessel on red): 55.77%
+2026-07-10 14:58:59    Overlay saved: data/novel_test/results_coloc2/overlays/32Cf2_CTX_overlay.png
+2026-07-10 14:58:59  [13/17] Processing 32Cma1_CTX.tif...
+2026-07-10 14:58:59    Vessel channel: green (user-specified)
+2026-07-10 14:59:24    Mask saved: 32Cma1_CTX_Mask.tif
+2026-07-10 14:59:24    Pixel size: 0.173 um/px
+2026-07-10 14:59:30    Area fraction: 0.0770
+2026-07-10 14:59:30    Vessels detected: 182
+2026-07-10 14:59:30    Mean diameter: 7.86 um
+2026-07-10 14:59:30    Max diameter:  17.51 um (vasodilation marker)
+2026-07-10 14:59:42    Co-localization (red on vessel): 11.68%
+2026-07-10 14:59:42    Co-localization (vessel on red): 60.64%
+2026-07-10 14:59:52    Overlay saved: data/novel_test/results_coloc2/overlays/32Cma1_CTX_overlay.png
+2026-07-10 14:59:52  [14/17] Processing 32Cma2_CTX.tif...
+2026-07-10 14:59:52    Vessel channel: green (user-specified)
+2026-07-10 15:00:18    Mask saved: 32Cma2_CTX_Mask.tif
+2026-07-10 15:00:18    Pixel size: 0.173 um/px
+2026-07-10 15:00:25    Area fraction: 0.0943
+2026-07-10 15:00:25    Vessels detected: 283
+2026-07-10 15:00:25    Mean diameter: 6.39 um
+2026-07-10 15:00:25    Max diameter:  16.27 um (vasodilation marker)
+2026-07-10 15:00:37    Co-localization (red on vessel): 5.96%
+2026-07-10 15:00:37    Co-localization (vessel on red): 31.39%
+2026-07-10 15:00:47    Overlay saved: data/novel_test/results_coloc2/overlays/32Cma2_CTX_overlay.png
+2026-07-10 15:00:47  [15/17] Processing 32Cmb1_CTX.tif...
+2026-07-10 15:00:47    Vessel channel: green (user-specified)
+2026-07-10 15:01:12    Mask saved: 32Cmb1_CTX_Mask.tif
+2026-07-10 15:01:12    Pixel size: 0.173 um/px
+2026-07-10 15:01:20    Area fraction: 0.1067
+2026-07-10 15:01:20    Vessels detected: 319
+2026-07-10 15:01:20    Mean diameter: 6.11 um
+2026-07-10 15:01:20    Max diameter:  16.00 um (vasodilation marker)
+2026-07-10 15:01:31    Co-localization (red on vessel): 4.02%
+2026-07-10 15:01:31    Co-localization (vessel on red): 39.96%
+2026-07-10 15:01:41    Overlay saved: data/novel_test/results_coloc2/overlays/32Cmb1_CTX_overlay.png
+2026-07-10 15:01:41  [16/17] Processing 32Cmb2_CTX.tif...
+2026-07-10 15:01:42    Vessel channel: green (user-specified)
+2026-07-10 15:02:06    Mask saved: 32Cmb2_CTX_Mask.tif
+2026-07-10 15:02:06    Pixel size: 0.173 um/px
+2026-07-10 15:02:13    Area fraction: 0.1016
+2026-07-10 15:02:13    Vessels detected: 254
+2026-07-10 15:02:13    Mean diameter: 6.45 um
+2026-07-10 15:02:13    Max diameter:  16.32 um (vasodilation marker)
+2026-07-10 15:02:24    Co-localization (red on vessel): 8.72%
+2026-07-10 15:02:24    Co-localization (vessel on red): 48.95%
+2026-07-10 15:02:34    Overlay saved: data/novel_test/results_coloc2/overlays/32Cmb2_CTX_overlay.png
+2026-07-10 15:02:34  [17/17] Processing 32Cmb3_CTX.tif...
+2026-07-10 15:02:34    Vessel channel: green (user-specified)
+2026-07-10 15:02:57    Mask saved: 32Cmb3_CTX_Mask.tif
+2026-07-10 15:02:57    Pixel size: 0.173 um/px
+2026-07-10 15:03:03    Area fraction: 0.1114
+2026-07-10 15:03:03    Vessels detected: 339
+2026-07-10 15:03:03    Mean diameter: 6.39 um
+2026-07-10 15:03:03    Max diameter:  17.13 um (vasodilation marker)
+2026-07-10 15:03:14    Co-localization (red on vessel): 7.69%
+2026-07-10 15:03:14    Co-localization (vessel on red): 46.31%
+2026-07-10 15:03:24    Overlay saved: data/novel_test/results_coloc2/overlays/32Cmb3_CTX_overlay.png
+2026-07-10 15:03:24  
+2026-07-10 15:03:24  ============================================================
+2026-07-10 15:03:24  Done. Processed 17 images.
+2026-07-10 15:03:24  Results saved to: data/novel_test/results_coloc2/measurements.csv
+2026-07-10 15:03:24  Overlay images: data/novel_test/results_coloc2/overlays/
+2026-07-10 15:03:24  Full log: data/novel_test/results_coloc2/prediction_log.txt
+2026-07-10 15:03:24  ============================================================
