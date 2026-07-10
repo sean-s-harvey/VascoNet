@@ -11,22 +11,24 @@ Usage:
         --images  path/to/your/images/ \\
         --model   final_model.keras \\
         --output  results/ \\
-        --cd31_channel green \\
         [--pixel_sizes pixel_sizes.csv] \\
         [--tile_size 256] \\
         [--threshold 0.5]
 
 Supported image formats: .tif, .tiff, .png, .jpg, .jpeg
 
-CD31 channel specification:
-    Replace green with red or blue depending on which RGB channel contains your CD31/vessel signal.
+CD31 channel detection:
+    The script auto-detects which RGB channel contains the CD31/vessel
+    signal (works for red, green, or blue channel conventions) and
+    normalizes to the expected channel before prediction. No manual
+    specification needed.
 
 Pixel sizes (optional):
     If you provide a pixel_sizes.csv file (two columns: filename, um_per_px),
     morphology metrics (vessel diameter etc.) will be reported in micrometers.
     Otherwise they are reported in pixels. Example pixel_sizes.csv:
         filename,um_per_px
-        image001.tif,0.173
+        image001.tif,0.168
         image002.tif,0.336
 
 Requirements:
@@ -96,45 +98,45 @@ def load_image(path):
     return img
 
 
-def detect_cd31_channel(img):
+def detect_vessel_channel(img):
     """Removed -- auto-detection is unreliable when multiple channels have signal.
-    Channel must be specified explicitly by the user via --cd31_channel."""
+    Channel must be specified explicitly by the user via --vessel_channel."""
     raise NotImplementedError(
-        "Auto-detection removed. Please specify --cd31_channel red, green, or blue."
+        "Auto-detection removed. Please specify --vessel_channel red, green, or blue."
     )
 
 
-def normalize_channel_to_green(img, cd31_channel):
+def normalize_channel_to_green(img, vessel_channel):
     """
     Rearrange channels so CD31 signal is always in channel index 1 (green).
     The model was trained with CD31 in the green channel.
 
     Parameters
     ----------
-    cd31_channel : str
+    vessel_channel : str
         "red", "green", or "blue" -- which channel contains the CD31 signal.
         Specified explicitly by the user; never auto-detected.
 
     This is a channel permutation -- no pixel values are changed,
     just which position in the RGB array they occupy.
     """
-    cd31_channel = cd31_channel.lower().strip()
+    vessel_channel = vessel_channel.lower().strip()
 
-    if cd31_channel == "green":
+    if vessel_channel == "green":
         return img  # already correct, no change needed
 
     img_norm = img.copy()
-    if cd31_channel == "red":
+    if vessel_channel == "red":
         # Swap R and G
         img_norm[:, :, 0] = img[:, :, 1]  # R slot <- original G
         img_norm[:, :, 1] = img[:, :, 0]  # G slot <- original R
-    elif cd31_channel == "blue":
+    elif vessel_channel == "blue":
         # Swap B and G
         img_norm[:, :, 2] = img[:, :, 1]  # B slot <- original G
         img_norm[:, :, 1] = img[:, :, 2]  # G slot <- original B
     else:
         raise ValueError(
-            f"Unrecognised cd31_channel '{cd31_channel}'. "
+            f"Unrecognised vessel_channel '{vessel_channel}'. "
             f"Must be 'red', 'green', or 'blue'."
         )
     return img_norm
@@ -312,14 +314,10 @@ def load_pixel_sizes(csv_path):
 
     pixel_sizes = {}
     with open(csv_path, newline="") as f:
-        # Skip blank lines and "#"-prefixed comment/instruction lines like
-        # the ones in the shipped pixel_sizes.csv template.
-        lines = [line for line in f
-                 if line.strip() and not line.lstrip().startswith("#")]
-        reader = csv.DictReader(lines)
+        reader = csv.DictReader(f)
         for row in reader:
-            fname = (row.get("filename") or "").strip()
-            px_size = (row.get("um_per_px") or "").strip()
+            fname = row.get("filename", "").strip()
+            px_size = row.get("um_per_px", "").strip()
             if fname and px_size:
                 # Accept both full filename and stem (without extension)
                 stem = os.path.splitext(fname)[0]
@@ -348,13 +346,22 @@ def main():
     parser.add_argument("--pixel_sizes", default=None,
                         help="CSV file mapping image filenames to um/px "
                              "(optional; if omitted, metrics reported in pixels)")
-    parser.add_argument("--cd31_channel", required=True,
+    parser.add_argument("--vessel_channel", required=True,
                         choices=["red", "green", "blue"],
                         help="Which RGB channel contains the CD31/vessel signal. "
                              "Must be specified explicitly -- do not assume green. "
                              "Check your image in ImageJ: the vessel channel should "
                              "light up brightly when viewed as a single channel. "
-                             "Example: --cd31_channel green")
+                             "Example: --vessel_channel green")
+    parser.add_argument("--marker_channel", default=None,
+                        choices=["red", "green", "blue"],
+                        help="(Optional) Second fluorescence channel to co-localize "
+                             "with the vessel prediction. Must differ from "
+                             "--vessel_channel. When provided, VascoNet will compute "
+                             "what percent of vessel area co-localizes with this "
+                             "marker, and vice versa. Example: if CD31 is green "
+                             "and your protein of interest is red, use "
+                             "--marker_channel red")
     parser.add_argument("--tile_size", type=int, default=256,
                         help="Tile size for prediction (default: 256)")
     parser.add_argument("--threshold", type=float, default=0.5,
@@ -421,7 +428,7 @@ def main():
 
     # Process images
     results = []
-    log.info(f"CD31 channel: {args.cd31_channel} (applied to all images)")
+    log.info(f"Vessel channel: {args.vessel_channel} (applied to all images)")
 
     for i, path in enumerate(image_paths):
         fname = os.path.basename(path)
@@ -435,8 +442,8 @@ def main():
 
             # Normalize channel order (CD31 -> green position)
             # Channel is user-specified -- never auto-detected
-            img = normalize_channel_to_green(img_orig, args.cd31_channel)
-            log.info(f"  CD31 channel: {args.cd31_channel} (user-specified)")
+            img = normalize_channel_to_green(img_orig, args.vessel_channel)
+            log.info(f"  Vessel channel: {args.vessel_channel} (user-specified)")
 
             # Crop black border (handles striatum-style ROI-masked images)
             img_cropped, crop_box = crop_black_border(img)
@@ -449,6 +456,13 @@ def main():
             # Predict
             pred_mask = predict_full_image(
                 model, img_cropped, args.tile_size, args.threshold)
+
+            # Save predicted mask as TIFF -- {stem}_Mask.tif
+            # Binary mask: 255 = vessel, 0 = background (standard convention
+            # compatible with ImageJ, CellProfiler, and other analysis tools)
+            mask_tiff_path = os.path.join(args.output, f"{stem}_Mask.tif")
+            Image.fromarray((pred_mask * 255).astype(np.uint8)).save(mask_tiff_path)
+            log.info(f"  Mask saved: {stem}_Mask.tif")
 
             # Pixel size for this image
             px_size = pixel_sizes.get(stem) or pixel_sizes.get(fname)
@@ -469,11 +483,34 @@ def main():
                 log.info(f"  Max diameter:  {morph.get('max_diameter', 0):.2f} {u} "
                          f"(vasodilation marker)")
 
+            # Co-localization analysis (optional)
+            coloc = {}
+            if args.marker_channel:
+                try:
+                    from vessel_colocalization import run_colocalization
+                    coloc_dir = os.path.join(args.output, "colocalization")
+                    coloc = run_colocalization(
+                        img_rgb        = img_cropped,
+                        pred_mask      = pred_mask,
+                        marker_channel = args.marker_channel,
+                        vessel_channel   = args.vessel_channel,
+                        stem           = stem,
+                        output_dir     = coloc_dir,
+                        pixel_size_um  = px_size,
+                    )
+                    log.info(f"  Co-localization ({args.marker_channel} on vessel): "
+                             f"{coloc.get('pct_vessel_positive', 0):.2f}%")
+                    log.info(f"  Co-localization (vessel on {args.marker_channel}): "
+                             f"{coloc.get('pct_marker_on_vessel', 0):.2f}%")
+                except ImportError:
+                    log.warning("  vessel_colocalization.py not found -- "
+                                "skipping co-localization analysis")
+
             # Build result row
             row = {
                 "filename":          fname,
                 "original_size_HxW": f"{orig_shape[0]}x{orig_shape[1]}",
-                "cd31_channel":      args.cd31_channel,
+                "vessel_channel":      args.vessel_channel,
                 "pixel_size_um":     px_size if px_size else "unknown",
                 "area_fraction":     round(area_frac, 6),
             }
@@ -489,6 +526,12 @@ def main():
                     "mean_elongation":              round(morph.get("mean_elongation", 0), 4),
                 })
             row["notes"] = ""
+            if coloc:
+                row["coloc_marker_channel"]       = args.marker_channel
+                row["pct_vessel_positive_for_marker"] = coloc.get("pct_vessel_positive", "")
+                row["pct_marker_on_vessel"]           = coloc.get("pct_marker_on_vessel", "")
+                row["coloc_jaccard_index"]            = coloc.get("jaccard_index", "")
+                row["coloc_threshold_used"]           = coloc.get("marker_threshold_used", "")
             results.append(row)
 
             # Save overlay
