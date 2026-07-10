@@ -381,7 +381,8 @@ acquired independently of the training set, we applied the final model to
 - **9 hypoxia** — mice exposed to hypoxic conditions (8% O₂) for one week
 
 Hypoxia is a well-established driver of angiogenesis and vascular remodeling
-across organs including the brain. Cortical sections from hypoxic animals  show significantly increased vascular density and diameters relative to normoxic controls — providing a biologically grounded contrast to validate automated measurements.
+across organs including the brain. Cortical sections from hypoxic animals  show significantly increased vascular density and diameters relative to normoxic controls — providing a biologically grounded contrast to validate automated measurements. Outputs
+from this analysis are found in `results/novel_test_colocalization/`.
 
 ### Vascular density: VascoNet vs. manual quantification
 
