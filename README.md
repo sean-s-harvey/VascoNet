@@ -410,7 +410,7 @@ without any additional annotation or manual measurement.
 
 ### Colocalization Analysis: 
 
-The normoxic and hypoxic mice described above were retro-orbitally injected with AAV-BR1 harboring an mCherry reporter. When injected in the systemic circulation, this AAV is capable of transducing various cell types of the central nervous system, including brain endothelial cells. Utilizing VascoNet to segment vessels, and Otsu thresholding to identify AAV-derived mCherry signal, we can determine the extent of AAV transduction in the brain vasculature (see below). Quantified metrics found in `measurements.csv` output.
+The normoxic and hypoxic mice described above were retro-orbitally injected with AAV-BR1 harboring an mCherry reporter. When injected in the systemic circulation, this AAV is capable of transducing various cell types of the central nervous system, including brain endothelial cells. Utilizing VascoNet to segment vessels, and Otsu thresholding to identify AAV-derived mCherry signal, we can determine the extent of AAV transduction in the brain vasculature. Two examples are provided below, where one sample shows very little AAV transduction, while the other has stronger vascular AAV signal.  Quantifications for all 17 samples are found in `measurements.csv` output. 
 
 ![Example - little AAV expression](results/novel_test_colocalization/colocalization/29Am2_CTX_colocalization.png)
 ![Example - stronger AAV expression](results/novel_test_colocalization/colocalization/32Cma2_CTX_colocalization.png)
