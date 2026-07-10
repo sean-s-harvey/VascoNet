@@ -52,7 +52,7 @@ python predict.py \
     --images  path/to/your/images/ \
     --model   final_model.keras \
     --output  results/ \
-    --cd31_channel green
+    --vessel_channel green
 ```
 
 Replace `green` with `red` or `blue` depending on which RGB channel contains
@@ -61,6 +61,27 @@ your CD31/vessel signal. **This must be specified manually**
 **4. (Optional) Add pixel sizes for morphology metrics in micrometers**
 
 Fill in `pixel_sizes.csv` with your image filenames and pixel size (μm/px), or alternatively, you can use the `generate_pixel_sizes_csv.py` script. Then, add `--pixel_sizes pixel_sizes.csv` to the command above. See the template and instructions inside `pixel_sizes.csv`. If omitted, vessel morphology metrics, such as diameter and circularity are reported in pixels.
+
+**5. (Optional) Co-localize with a second marker channel**
+
+If your images have a second fluorescence channel of interest (e.g. a
+cell-type or protein marker) and you want to know how much of it overlaps
+with predicted vessels, add `--marker_channel` (must be a different channel
+than `--vessel_channel`):
+
+```bash
+python predict.py \
+    --images  path/to/your/images/ \
+    --model   final_model.keras \
+    --output  results/ \
+    --vessel_channel green \
+    --marker_channel red
+```
+
+The marker channel is thresholded automatically using Otsu's method. This
+adds a `colocalization/` subfolder to your output (a QC overlay plus binary
+mask PNGs per image) and extra columns to `measurements.csv` — see
+[Output files](#output-files) below.
 
 ---
 
@@ -71,7 +92,10 @@ Running `predict.py` creates the following in your output folder:
 | File | Description |
 |---|---|
 | `measurements.csv` | One row per image: area fraction, vessel count, mean/median/max diameter, circularity, elongation |
+| `{stem}_Mask.tif` | Binary vessel mask per image (255 = vessel, 0 = background), saved for every run |
 | `overlays/stem_overlay.png` | Three-panel QC image: original \| predicted mask \| overlay |
+| `colocalization/stem_colocalization.png` | (If `--marker_channel` used) Four-panel QC image: original \| vessel mask \| marker mask \| co-localization overlay |
+| `colocalization/masks/` | (If `--marker_channel` used) Binary PNG masks per image: vessel, marker, and their overlap |
 | `prediction_log.txt` | Full processing log with warnings |
 
 ### Output column descriptions
@@ -86,7 +110,12 @@ Running `predict.py` creates the following in your output folder:
 | `std_diameter_um` | Standard deviation of vessel diameters |
 | `mean_circularity` | Shape descriptor: 1.0 = perfect circle, approaching 0 = elongated |
 | `mean_elongation` | Shape descriptor: 1.0 = circle, higher = more elongated |
-| `cd31_channel` | Channel used for prediction (as specified by user) |
+| `vessel_channel` | Channel used for vessel prediction (as specified by user) |
+| `coloc_marker_channel` | (If `--marker_channel` used) Channel used for the second marker |
+| `pct_vessel_positive_for_marker` | (If `--marker_channel` used) % of vessel area that is also positive for the marker |
+| `pct_marker_on_vessel` | (If `--marker_channel` used) % of marker-positive area that overlaps vessels |
+| `coloc_jaccard_index` | (If `--marker_channel` used) Jaccard index (overlap / union) between vessel and marker masks |
+| `coloc_threshold_used` | (If `--marker_channel` used) Otsu (or user-supplied) intensity threshold applied to the marker channel |
 
 > **Always check the overlay images before using results in a publication.**
 > Open `overlays/` and verify that predicted vessel regions (shown in red)

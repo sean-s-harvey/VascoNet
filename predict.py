@@ -2,8 +2,11 @@
 predict.py — Automated vessel quantification from IHC images
 
 Runs a trained U-Net model on a folder of IHC images and outputs:
-  - measurements.csv : area fraction + morphology metrics for every image
-  - overlays/        : side-by-side QC images (original | mask | overlay)
+  - measurements.csv  : area fraction + morphology metrics for every image
+  - {stem}_Mask.tif   : binary vessel mask per image (255=vessel, 0=background)
+  - overlays/         : side-by-side QC images (original | mask | overlay)
+  - colocalization/   : (if --marker_channel given) co-localization QC
+                         images and binary masks
   - prediction_log.txt : processing log with any warnings
 
 Usage:
@@ -11,17 +14,25 @@ Usage:
         --images  path/to/your/images/ \\
         --model   final_model.keras \\
         --output  results/ \\
+        --vessel_channel green \\
+        [--marker_channel red] \\
         [--pixel_sizes pixel_sizes.csv] \\
         [--tile_size 256] \\
         [--threshold 0.5]
 
 Supported image formats: .tif, .tiff, .png, .jpg, .jpeg
 
-CD31 channel detection:
-    The script auto-detects which RGB channel contains the CD31/vessel
-    signal (works for red, green, or blue channel conventions) and
-    normalizes to the expected channel before prediction. No manual
-    specification needed.
+Vessel channel (required):
+    Which RGB channel contains the CD31/vessel signal must be specified
+    explicitly via --vessel_channel (red, green, or blue). Auto-detection
+    is not performed -- it is unreliable when multiple channels have signal.
+
+Marker channel / co-localization (optional):
+    If your images have a second fluorescence channel of interest (e.g. a
+    cell-type or protein marker), pass --marker_channel (must differ from
+    --vessel_channel) to compute co-localization between predicted vessels
+    and that channel. The marker channel is thresholded automatically
+    using Otsu's method.
 
 Pixel sizes (optional):
     If you provide a pixel_sizes.csv file (two columns: filename, um_per_px),
@@ -371,6 +382,12 @@ def main():
                         help="Skip saving overlay images (faster, less disk)")
     args = parser.parse_args()
 
+    if args.marker_channel and args.marker_channel == args.vessel_channel:
+        parser.error(
+            f"--marker_channel must differ from --vessel_channel "
+            f"(both were '{args.vessel_channel}')"
+        )
+
     # Setup
     log = setup_logging(args.output)
     overlay_dir = os.path.join(args.output, "overlays")
@@ -453,6 +470,16 @@ def main():
                 log.info(f"  Cropped black border: {img.shape[:2]} -> "
                          f"{img_cropped.shape[:2]} ({retained:.0%} retained)")
 
+            # Same spatial crop applied to the ORIGINAL (pre-channel-swap)
+            # image. crop_box is computed from a channel-order-invariant
+            # gray mean, so it's valid for img_orig too. This is what
+            # co-localization must read the marker channel from --
+            # img_cropped has already had its channels permuted by
+            # normalize_channel_to_green() and no longer reflects the
+            # camera's actual red/green/blue assignment.
+            y0, y1, x0, x1 = crop_box
+            img_orig_cropped = img_orig[y0:y1, x0:x1]
+
             # Predict
             pred_mask = predict_full_image(
                 model, img_cropped, args.tile_size, args.threshold)
@@ -490,7 +517,7 @@ def main():
                     from vessel_colocalization import run_colocalization
                     coloc_dir = os.path.join(args.output, "colocalization")
                     coloc = run_colocalization(
-                        img_rgb        = img_cropped,
+                        img_rgb        = img_orig_cropped,
                         pred_mask      = pred_mask,
                         marker_channel = args.marker_channel,
                         vessel_channel   = args.vessel_channel,
