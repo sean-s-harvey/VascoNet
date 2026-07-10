@@ -7,6 +7,8 @@
 data/
 *.tif
 *.tiff
+# ...but allow VascoNet's own mask TIFF outputs (predict.py) to be committed
+!*_Mask.tif
 
 # Python
 __pycache__/
