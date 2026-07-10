@@ -16,7 +16,7 @@ Outputs written to results_v2/:
     fold{N}_history.json        -- raw epoch values per fold (5 files)
     crossfold_summary.png       -- all folds' val curves overlaid
     cv_results.json             -- full numeric summary, machine-readable
-    final_model.keras           -- model trained on ALL 53 slides (keeper)
+    final_model.keras           -- model trained on ALL annotated slides (keeper)
     final_model_metadata.json   -- provenance record for the final model
 """
 

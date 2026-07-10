@@ -291,7 +291,7 @@ module converts ROI files to binary masks automatically during training.
 
 ### Running training
 
-**Interactive (notebook):** open `notebooks/vessel_segmentation_walkthrough.ipynb`
+**Interactive (notebook):** open `notebooks/vessel_segmentation_walkthrough_v2.ipynb`
 in Jupyter Lab. This walks through every step of the pipeline cell-by-cell with
 explanations and visualizations. Written to be educational and functional.
 

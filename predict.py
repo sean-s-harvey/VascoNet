@@ -312,10 +312,14 @@ def load_pixel_sizes(csv_path):
 
     pixel_sizes = {}
     with open(csv_path, newline="") as f:
-        reader = csv.DictReader(f)
+        # Skip blank lines and "#"-prefixed comment/instruction lines like
+        # the ones in the shipped pixel_sizes.csv template.
+        lines = [line for line in f
+                 if line.strip() and not line.lstrip().startswith("#")]
+        reader = csv.DictReader(lines)
         for row in reader:
-            fname = row.get("filename", "").strip()
-            px_size = row.get("um_per_px", "").strip()
+            fname = (row.get("filename") or "").strip()
+            px_size = (row.get("um_per_px") or "").strip()
             if fname and px_size:
                 # Accept both full filename and stem (without extension)
                 stem = os.path.splitext(fname)[0]

@@ -48,10 +48,16 @@ md("## 1. Setup\n\nImport everything and confirm GPU visibility.")
 
 code("""
 import os
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow import keras
+
+# Make the training/ modules importable regardless of where Jupyter was
+# launched from -- this notebook's kernel cwd is its own directory
+# (notebooks/), while the pipeline modules live in ../training.
+sys.path.insert(0, os.path.abspath(os.path.join("..", "training")))
 
 print("TensorFlow version:", tf.__version__)
 gpus = tf.config.list_physical_devices('GPU')
@@ -82,8 +88,10 @@ md("""
 """)
 
 code("""
-IMAGE_DIR = "data/images"
-ROI_DIR   = "data/rois"
+# Paths are relative to this notebook's directory (notebooks/); the data/
+# folder lives at the repo root alongside training/.
+IMAGE_DIR = "../data/images"
+ROI_DIR   = "../data/rois"
 
 records = build_dataset_index(IMAGE_DIR, ROI_DIR)
 print(f"Found {len(records)} image/ROI pairs")
@@ -925,8 +933,8 @@ nb["metadata"] = {
     "language_info": {"name": "python", "version": "3.11"}
 }
 
-with open("vessel_segmentation_walkthrough.ipynb", "w") as f:
+with open("vessel_segmentation_walkthrough_v2.ipynb", "w") as f:
     nbf.write(nb, f)
 
-print(f"Notebook written: vessel_segmentation_walkthrough.ipynb")
+print(f"Notebook written: vessel_segmentation_walkthrough_v2.ipynb")
 print(f"Total cells: {len(cells)}")
