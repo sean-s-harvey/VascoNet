@@ -408,6 +408,15 @@ These additional metrics reflect the vascular remodeling response to hypoxia
 beyond simple density changes, and are provided automatically by VascoNet
 without any additional annotation or manual measurement.
 
+### Colocalization Analysis: 
+
+The normoxic and hypoxic mice described above were retro-orbitally injected with AAV-BR1 harboring an mCherry reporter. When injected in the systemic circulation, this AAV is capable of transducing various cell types of the central nervous system, including brain endothelial cells. Utilizing VascoNet to segment vessels, and Otsu thresholding to identify AAV-derived mCherry signal, we can determine the extent of AAV transduction in the brain vasculature (see below). Quantified metrics found in `measurements.csv` output.
+
+![Example - little AAV expression](results/novel_test_colocalization/colocalization/29Am2_CTX_colocalization.png)
+![Example - stronger AAV expression](results/novel_test_colocalization/colocalization/32Cma2_CTX_colocalization.png)
+
+ The colocalization function holds substantial utility for future experiments that wish to understand the extend of expression a given protein of interest has within the brain vasculature.
+
 ### Images and pixel calibration
 
 Images were acquired using an Axio Imager.M2 microscope with Axiocam 712 mono camera and Zen blue (v3.3.89.0000) software (Zeiss). Individual fluorescence channels were exported as separate TIFFs and merged into RGB composites for model input (CD31 in green). Scale: 0.1730 μm/px (289 px = 50 μm, confirmed from scale bar).
