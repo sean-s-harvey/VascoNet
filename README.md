@@ -212,29 +212,7 @@ the measurement error relevant to downstream biological analyses.
 
 U-Net with EfficientNetB0 encoder (ImageNet-pretrained):
 
-```
-Input: 256×256×3 tile (RGB, float32, [0,1])
-    ↓
-Rescaling(255)        [converts to EfficientNetB0's expected [0,255] range]
-    ↓
-EfficientNetB0 encoder (pretrained, 5 downsampling stages):
-    128×128×96   ← skip connection 0
-    64×64×144    ← skip connection 1
-    32×32×240    ← skip connection 2
-    16×16×672    ← skip connection 3
-    8×8×1280     [bottleneck]
-    ↓
-Decoder (5 upsampling stages with skip connections):
-    16×16×256
-    32×32×128
-    64×64×64
-    128×128×32
-    256×256×16
-    ↓
-Conv2D(1, 1) + sigmoid
-    ↓
-Output: 256×256×1 (per-pixel vessel probability)
-```
+![model architecture](results/figures/model_architecture.png)
 
 Each decoder stage consists of: UpSampling2D (bilinear) → Concatenate (skip)
 → Conv2D → BatchNorm → ReLU → Conv2D → BatchNorm → ReLU.
